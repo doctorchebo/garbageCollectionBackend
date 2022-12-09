@@ -2,7 +2,8 @@ from .models import Location
 from rest_framework import routers, serializers, viewsets
 from users.models import CustomUser
 # Serializers define the API representation.
-class LocationSerializer(serializers.ModelSerializer):
+class LocationAddSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
     user = serializers.SlugRelatedField(
     read_only=True,
     slug_field='email'
@@ -18,8 +19,22 @@ class LocationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data['user'] = self.context['request'].user
-        return super(LocationSerializer, self).create(validated_data)
+        return super(LocationAddSerializer, self).create(validated_data)
 
+
+class LocationUpdateSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    user = serializers.SlugRelatedField(
+    read_only=True,
+    slug_field='email'
+    )
+    user = serializers.SlugRelatedField(
+    read_only=True,
+    slug_field='email'
+    )
+    class Meta:
+        model = Location
+        fields = ['id', 'user', 'lat', 'lng', 'cleaning_state']
 
 class LocationListSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(
