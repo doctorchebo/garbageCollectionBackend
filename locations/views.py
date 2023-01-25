@@ -21,6 +21,22 @@ class LocationViewSet(ModelViewSet):
             return LocationAddSerializer
         else:
             return LocationListSerializer
+
+class MyLocationsViewSet(ModelViewSet):
+    @action(detail=False)
+    def get_queryset(self):
+        queryset = Location.objects.filter(user=self.request.user)
+        return queryset
+    def get_serializer_class(self):
+        return LocationListSerializer
+    @action(detail=True)
+    def get_serializer_class(self):
+        if self.request.method == 'PUT':
+            return LocationUpdateSerializer
+        if self.request.method == 'POST':
+            return LocationAddSerializer
+        else:
+            return LocationListSerializer
 class LocationAddViewSet(CreateModelMixin, RetrieveModelMixin):
     def get_queryset(self):
         queryset = Location.objects.all()
