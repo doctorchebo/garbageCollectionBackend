@@ -8,7 +8,11 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from .utils import Util
 from rest_framework.response import Response
-class CustomUserViewSet(viewsets.ModelViewSet):
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+class CreateUserViewSet(viewsets.ModelViewSet):
+    authentication_classes = [] #disables authentication
+    permission_classes = [] 
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
     def post(self, request):
