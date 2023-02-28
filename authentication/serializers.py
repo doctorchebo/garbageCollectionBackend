@@ -9,6 +9,7 @@ class CustomUserSerializer(serializers.Serializer):
         password = validated_data.pop('password')
         user = CustomUser.objects.create(username=email, **validated_data)
         user.set_password(password)
+        user.is_active = False
         user.save()
         return user
 
