@@ -23,7 +23,7 @@ class CreateUserViewSet(generics.GenericAPIView):
         user = request.data
         serializer = self.serializer_class(data=user)
         if serializer.is_valid(raise_exception=True):
-            serializer.save()
+            user = serializer.save()
             user_data = serializer.data
             user = CustomUser.objects.get(email=user_data['email'])
             token = RefreshToken.for_user(user).access_token
