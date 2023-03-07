@@ -173,8 +173,8 @@ if POSTGRES_READY:
     }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=480),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=60*30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(seconds=920),
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

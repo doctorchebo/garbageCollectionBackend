@@ -4,3 +4,4 @@ class Util:
     def send_email(data):
         email = EmailMessage(subject=data['subject'], body=data['email_body'], to=[data['email_to']])
         email.send(fail_silently=False)
+        print("Email sent successfully")
