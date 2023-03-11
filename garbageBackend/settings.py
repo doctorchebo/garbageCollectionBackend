@@ -173,7 +173,7 @@ if POSTGRES_READY:
     }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=60*30),
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=60*60*24),
     'REFRESH_TOKEN_LIFETIME': timedelta(seconds=920),
 }
 
