@@ -36,9 +36,15 @@ class UserLocationsViewSet(ModelViewSet):
             return LocationAddSerializer
         else:
             return LocationListSerializer
-class LocationAddViewSet(generics.CreateAPIView):
+class LocationAddAPIView(generics.CreateAPIView):
     queryset = Location.objects.all()
     serializer_class = LocationAddSerializer
+
+class LocationListAPIView(generics.ListAPIView):
+    authentication_classes = []
+    permission_classes = []
+    queryset = Location.objects.all()
+    serializer_class = LocationListSerializer
 
 class LocationUpdateViewSet(CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin):
     def get_queryset(self):

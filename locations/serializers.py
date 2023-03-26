@@ -5,7 +5,7 @@ from users.models import CustomUser
 class LocationAddSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
-        fields = ['lat', 'lng']
+        fields = ['lat', 'lng', 'name']
     def create(self, validated_data):
         location = Location.objects.create(cleaning_state = "NC", user=self.context['request'].user, **validated_data)
         location.save()
@@ -27,20 +27,10 @@ class LocationUpdateSerializer(serializers.ModelSerializer):
         fields = ['id', 'user', 'lat', 'lng', 'cleaning_state']
 
 class LocationListSerializer(serializers.ModelSerializer):
-    user = serializers.SlugRelatedField(
-    read_only=True,
-    slug_field='email'
-    )
     cleaning_state = serializers.SerializerMethodField()
-
-    user = serializers.SlugRelatedField(
-    read_only=True,
-    slug_field='email'
-    )
-
     class Meta:
         model = Location
-        fields = ['id', 'user', 'lat', 'lng', 'cleaning_state', 'created', 'modified']
+        fields = ['id', 'lat', 'lng', 'name', 'cleaning_state', 'created', 'modified']
 
     def get_cleaning_state(self, obj):
         return obj.get_cleaning_state_display()
